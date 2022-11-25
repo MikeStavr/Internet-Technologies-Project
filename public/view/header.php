@@ -5,7 +5,6 @@
         position: fixed;
         top: 0;
         width: 100%;
-        z-index: 1;
     }
 
     .topnav a {
@@ -42,7 +41,6 @@ function sendNavBar($active)
                             <a href='./index.php' title='Go back to the homepage.'>Home</a>
                             <a class='active' href='./login.php' title='Login to view your reservations'>Login</a>
                             <a href='./menu.php' title='View the menu.'>Menu</a>
-                            <a href='./admin.php' class='right' title='Login to the admin panel.'>Admin</a>
                             </div>";
             break;
 
@@ -52,6 +50,7 @@ function sendNavBar($active)
                             <a href='./login.php' title='Login to view your reservations'>Login</a>
                             <a href='./menu.php' title='View the menu.'>Menu</a>
                             <a href='./admin.php' class='right' title='Login to the admin panel.'>Admin</a>
+                            <a href='./register.php' class='right' title='Register to the website.'>Register</a>
                             </div>";
             break;
 
@@ -69,8 +68,24 @@ function sendNavBar($active)
                             <a href='./index.php' title='Go back to the homepage.'>Home</a>
                             <a href='./login.php' title='Login to view your reservations' >Login</a>
                             <a href='./menu.php'  title='View the menu.'>Menu</a>
-                            <a href='./admin.php' class='active right' title='Login to the admin panel.'>Admin</a>
+                            <a href='./admin.php' class='right active' title='Go to the admin panel.'>Admin</a>
                             </div>";
+            break;
+        case "register":
+            echo " <div class='topnav'>
+                                <a href='./index.php' title='Go back to the homepage.'>Home</a>
+                                <a href='./login.php' title='Login to view your reservations' >Login</a>
+                                <a href='./menu.php'  title='View the menu.'>Menu</a>
+                                <a href='./register.php' class='active right' title='View the menu.'>Register</a>
+                                </div>";
+            break;
+        case "adminPanel":
+            echo " <div class='topnav'>
+                                    <a href='../index.php' title='Go back to the homepage.'>Home</a>
+                                    <a href='../login.php' title='Login to view your reservations' >Login</a>
+                                    <a href='../menu.php'  title='View the menu.'>Menu</a>
+                                    <a href='../logout.php' class='active right' title='Logout.'>Logout</a>
+                                    </div>";
             break;
         default:
             echo " <div class='topnav'>

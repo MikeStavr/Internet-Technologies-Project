@@ -1,3 +1,25 @@
+<?php
+
+session_start();
+
+$username = "";
+$password = "";
+if (isset($_POST["adminUsername"]) && isset($_POST["adminPassword"])) {
+    $username = $_POST["adminUsername"];
+    $password = $_POST["adminPassword"];
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["loginToAdmin"])) {
+    if (strcmp($username, "admin") == 0 && strcmp($password, "strongpassword1") == 0) {
+        header("Location: ./admin/adminpanel.php");
+        unset($_POST);
+        exit;
+    }
+} else {
+    echo "Wrong username or password!";
+    unset($_POST);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +27,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login page</title>
+    <title>Admin panel</title>
     <link rel="stylesheet" href="../assets/style.css">
     <style>
         form {
@@ -57,33 +79,28 @@
 </head>
 
 <body>
-    <?php
-    include './view/header.php';
-    sendNavBar("login");
-    ?>
+
+    <?php include "./view/header.php";
+    sendNavBar("admin") ?>
+
     <div class="centered">
-        <form action="./user/userpanel.php" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <div class="imgcontainer">
-                <h1>Login</h1>
+                <h1>Login to the Admin Panel</h1>
             </div>
 
             <div class="container">
                 <label for="username"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="username" required>
+                <input type="text" placeholder="Enter Username" name="adminUsername" required>
 
                 <label for="password"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="password" required>
+                <input type="password" placeholder="Enter Password" name="adminPassword" required>
 
-                <button type="submit">Login</button>
-                <div class="container">
-                    <p>No account? <a href="./register.php" class="register"
-                            title="Click here to visit the register form.">Register</a> now!</p>
-                </div>
+                <button type="submit" name="loginToAdmin">Login</button>
             </div>
         </form>
+        <p id="error"></p>
     </div>
-
-
 </body>
 
 </html>

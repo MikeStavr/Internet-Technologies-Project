@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<main_menu>
+
+    <dishes>
+        <dish>
+            <dishID>1</dishID>
+            <dishName>Hamburger</dishName>
+            <dishDescription>Classic hamburger, cooked the way you like it.</dishDescription>
+            <dishPrice>6€</dishPrice>
+        </dish>
+    </dishes>
+
+</main_menu>
