@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["loginToAdmin"])) {
         exit;
     }
 } else {
-    echo "Wrong username or password!";
+    echo "<p id='error'>Wrong username or password!</p>";
     unset($_POST);
 }
 ?>
