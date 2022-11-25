@@ -1,3 +1,57 @@
+<?php
+session_start();
+
+require_once "./config/config.php";
+
+$error = "";
+$email = "";
+$password = "";
+
+if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === true) {
+    header("Location: ./user/userpanel.php");
+    exit;
+}
+
+if (isset($_POST["login"]) && $_SERVER["REQUEST_METHOD"] === "POST") {
+    $email = trim($_POST["email"]);
+    $password = trim($_POST["password"]);
+    $sql = "SELECT userID, firstname, lastname, telephone, email, password FROM users WHERE email = ?";
+
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        mysqli_stmt_bind_param($stmt, "s", $email);
+
+        if (mysqli_stmt_execute($stmt)) {
+            mysqli_stmt_store_result($stmt);
+
+            if (mysqli_stmt_num_rows($stmt) == 1) {
+                mysqli_stmt_bind_result($stmt, $id, $firstname, $lastname, $telephone, $email, $hashedPassword);
+                if (mysqli_stmt_fetch($stmt)) {
+                    if (password_verify($password, $hashedPassword)) {
+                        session_start();
+
+                        $_SESSION["loggedIn"] = true;
+                        $_SESSION["firstName"] = $firstname;
+                        $_SESSION["lastName"] = $lastname;
+                        $_SESSION["fullName"] = $firstname . " " . $lastname;
+                        $_SESSION["telephone"] = $telephone;
+                        $_SESSION["email"] = $email;
+                        header("Location: ./user/userpanel.php");
+                    } else {
+                        $error = "Invalid username or password.";
+                    }
+                }
+            } else {
+                $error = "Invalid username or password.";
+            }
+
+        } else {
+            echo "Something went wrong. Contact an administrator.";
+        }
+        mysqli_stmt_close($stmt);
+    }
+    mysqli_close($link);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +66,7 @@
             border: 3px solid #f1f1f1;
         }
 
-        input[type=text],
+        input[type=email],
         input[type=password] {
             width: 100%;
             padding: 12px 20px;
@@ -62,25 +116,28 @@
     sendNavBar("login");
     ?>
     <div class="centered">
-        <form action="./user/userpanel.php" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="imgcontainer">
                 <h1>Login</h1>
             </div>
 
             <div class="container">
                 <label for="Email"><b>Email</b></label>
-                <input type="text" placeholder="Enter your email." name="email" required>
+                <input type="email" placeholder="Enter your email." name="email" required>
 
                 <label for="password"><b>Password</b></label>
                 <input type="password" placeholder="Enter Password" name="password" required>
 
-                <button type="submit">Login</button>
+                <button type="submit" name="login">Login</button>
                 <div class="container">
                     <p>No account? <a href="./register.php" class="register"
                             title="Click here to visit the register form.">Register</a> now!</p>
                 </div>
             </div>
         </form>
+        <p id="error">
+            <?php echo !empty($error) ? $error : ""; ?>
+        </p>
     </div>
 
 

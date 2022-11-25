@@ -154,12 +154,12 @@ if (isset($_POST["uploadFile"]) && $_POST["uploadFile"] == "Upload file") {
                 if (file_exists("../../assets/menus/menu_dessert.xml")) {
                     $xmlFile = simplexml_load_file("../../assets/menus/menu_dessert.xml");
 
-                    foreach ($xmlFile->dishes->dish as $child) {
+                    foreach ($xmlFile->desserts->dessert as $child) {
 
                         echo "<tr>
-                        <td>" . $child->dishName . "</td>
-                        <td>" . $child->dishDescription . "</td>
-                        <td>" . $child->dishPrice . "</td>
+                        <td>" . $child->dessertName . "</td>
+                        <td>" . $child->dessertDescription . "</td>
+                        <td>" . $child->dessertPrice . "</td>
                         </tr>";
                     }
                 } else {

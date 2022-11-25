@@ -4,6 +4,6 @@ session_start();
 $_SESSION = array();
 session_destroy();
 
-header("location: ./admin.php");
+header("location: ./index.php");
 exit;
 ?>

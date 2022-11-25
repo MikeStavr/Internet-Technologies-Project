@@ -1,3 +1,35 @@
+<?php
+session_start();
+
+require_once("./config/config.php");
+$error = "";
+if (isset($_POST["register"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
+    $firstname = $_POST["firstname"];
+    $lastname = $_POST["lastname"];
+    $telephone = $_POST["telephone"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $result = mysqli_query($link, $sql);
+    if (mysqli_num_rows($result)) {
+        $error = "Error: Email already being used.";
+    } else {
+        $sql = "INSERT INTO users VALUES ('default', '$firstname', '$lastname', '$telephone', '$email', '$hashedPassword');";
+        if (mysqli_query($link, $sql)) {
+            consoleLog("Successfully registered.");
+            header("Location: ./login.php");
+            exit;
+        } else {
+            $error = "Error: Could process register.";
+        }
+    }
+
+
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,6 +40,10 @@
     <title>Register page</title>
     <link rel="stylesheet" href="../assets/style.css">
     <style>
+        * {
+            overflow: hidden;
+        }
+
         .container {
             padding: 16px;
         }
@@ -60,7 +96,7 @@
     include "./view/header.php";
     sendNavBar("register");
     ?>
-    <form action="./login.php">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
         <div class="container centered">
             <h1>Register</h1>
             <p>Please fill in this form to create an account.</p>
@@ -78,13 +114,18 @@
             <input type="text" placeholder="Enter your email." name="email" id="email" required>
 
             <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter your password." name="password" id="password" required>
+            <input type="password" placeholder="Enter your password." name="password" id="password" minlength="8"
+                required>
 
             <label for="psw-repeat"><b>Repeat Password</b></label>
             <input type="password" placeholder="Repeat your password." name="password-repeat" id="password-repeat"
-                required>
+                minlength="8" required>
             <hr>
-            <button type="submit" name="registerButton" class="registerbtn">Register</button>
+            <input type="submit" name="register" class="registerbtn" value="Register">
+            <p id="error">
+                <?php echo !empty($error) ? $error : ""
+                    ?>
+            </p>
         </div>
     </form>
 

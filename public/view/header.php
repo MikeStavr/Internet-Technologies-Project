@@ -87,6 +87,14 @@ function sendNavBar($active)
                                     <a href='../logout.php' class='active right' title='Logout.'>Logout</a>
                                     </div>";
             break;
+        case "userPanel":
+            echo " <div class='topnav'>
+                                        <a href='../index.php' title='Go back to the homepage.'>Home</a>
+                                        <a href='../login.php' title='Login to view your reservations' >Login</a>
+                                        <a href='../menu.php'  title='View the menu.'>Menu</a>
+                                        <a href='../logout.php' class='active right' title='Logout.'>Logout</a>
+                                        </div>";
+            break;
         default:
             echo " <div class='topnav'>
             <a href='./index.php' title='Go back to the homepage.'>Home</a>

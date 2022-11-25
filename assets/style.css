@@ -8,7 +8,9 @@ html {
   height: 100%;
   margin: 0;
 }
-
+.inform {
+  color: #0096ff;
+}
 .bg {
   background-image: url("https://images.pexels.com/photos/3534750/pexels-photo-3534750.jpeg?cs=srgb&dl=pexels-adrien-olichon-3534750.jpg&fm=jpg&h=1080&w=1920&fit=crop");
   height: 100%;
@@ -35,6 +37,9 @@ html {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+.center {
+  text-align: center;
 }
 .middle-box {
   background-color: rgba(0, 0, 0, 0.5);
