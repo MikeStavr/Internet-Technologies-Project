@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<main_menu>
+	<dishes>
+		<dish>
+			<dishID>1</dishID>
+			<dishName>Hamburger</dishName>
+			<dishDescription>Classic hamburger, cooked the way you like it.</dishDescription>
+			<dishPrice>6€</dishPrice>
+		</dish>
+		<dish>
+			<dishID>2</dishID>
+			<dishName>Cheeseburger</dishName>
+			<dishDescription>Classic cheeseburger, cooked the way you like it.</dishDescription>
+			<dishPrice>5€</dishPrice>
+		</dish>
+		<dish>
+			<dishID>3</dishID>
+			<dishName>Vegan burger</dishName>
+			<dishDescription>Vegan burger, made of 100% vegan ingredients.</dishDescription>
+			<dishPrice>5.5€</dishPrice>
+		</dish>
+		<dish>
+			<dishID>4</dishID>
+			<dishName>Wiener Schnitzel</dishName>
+			<dishDescription>Classic wiener schnitzel made just like in Vienna.</dishDescription>
+			<dishPrice>12€</dishPrice>
+		</dish>
+	</dishes>
+</main_menu>

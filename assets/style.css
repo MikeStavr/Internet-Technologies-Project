@@ -46,6 +46,11 @@ html {
   padding: 10px;
   border-radius: 15px;
 }
+.top-right {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
 a {
   color: white;
 }

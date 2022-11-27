@@ -7,6 +7,15 @@ function consoleLog($msg)
     echo "<script> console.log($msg) </script>";
 }
 
+$sql = "CREATE DATABASE IF NOT EXISTS restaurant";
+if (mysqli_query($link, $sql)) {
+    consoleLog("Created database 'restaurant'.");
+} else {
+    consoleLog("Error! Error occurred while attempting to use database restaurant! " . mysqli_error($link));
+
+}
+
+
 $sql = "USE restaurant";
 if (mysqli_query($link, $sql)) {
     echo consoleLog("Using database \"restaurant\" successfully!");
