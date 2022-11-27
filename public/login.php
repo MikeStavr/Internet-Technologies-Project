@@ -30,6 +30,7 @@ if (isset($_POST["login"]) && $_SERVER["REQUEST_METHOD"] === "POST") {
                         session_start();
 
                         $_SESSION["loggedIn"] = true;
+                        $_SESSION["userID"] = $id;
                         $_SESSION["firstName"] = $firstname;
                         $_SESSION["lastName"] = $lastname;
                         $_SESSION["fullName"] = $firstname . " " . $lastname;
