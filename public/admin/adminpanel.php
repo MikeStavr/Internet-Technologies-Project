@@ -1,4 +1,5 @@
 <?php
+require("../config/config.php");
 if (isset($_POST["uploadFile"]) && $_POST["uploadFile"] == "Upload file") {
     if (isset($_FILES["menuFile"]) && $_FILES["menuFile"]["error"] == UPLOAD_ERR_OK) {
         $fileName = $_FILES["menuFile"]["name"];
@@ -30,6 +31,7 @@ if (isset($_POST["uploadFile"]) && $_POST["uploadFile"] == "Upload file") {
     }
 }
 
+$error = "";
 ?>
 
 <!DOCTYPE html>
@@ -83,6 +85,10 @@ if (isset($_POST["uploadFile"]) && $_POST["uploadFile"] == "Upload file") {
 
         tr:nth-child(even) {
             background-color: #f2f2f2;
+        }
+
+        .full table {
+            width: 100%;
         }
     </style>
 </head>
@@ -179,6 +185,83 @@ if (isset($_POST["uploadFile"]) && $_POST["uploadFile"] == "Upload file") {
         </div>
     </div>
 
+    <div class="full">
+        <table>
+            <tr>
+                <th>Reservation ID</th>
+                <th>User ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Telephone</th>
+                <th>Email</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Reserved people</th>
+                <th>Comments</th>
+            </tr>
+            <?php
+            $sql = "SELECT * FROM reservations";
+            $result = mysqli_query($link, $sql);
+            if ($result) {
+                if (mysqli_num_rows($result) == 0) {
+                    $error = "No reservations found!";
+                }
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>
+                    <td>" . $row["reservationID"] . "</td>
+                    <td>" . $row["userID"] . "</td>
+                    <td>" . $row["firstname"] . "</td>
+                    <td>" . $row["lastname"] . "</td>
+                    <td>" . $row["telephone"] . "</td>
+                    <td>" . $row["email"] . "</td>
+                    <td>" . $row["date"] . "</td>
+                    <td>" . $row["time"] . "</td>
+                    <td>" . $row["people"] . "</td>
+                    <td>" . $row["comments"] . "</td>
+                    </tr>";
+                }
+            } else {
+                $error = "Error occurred!";
+            }
+            ?>
+
+        </table>
+    </div>
+    <br>
+    <br>
+    <div class=" full">
+        <table>
+            <tr>
+                <th>Order ID</th>
+                <th>Full Name</th>
+                <th>Order</th>
+            </tr>
+            <?php
+            $sql = "SELECT * FROM orders";
+            $result = mysqli_query($link, $sql);
+            if ($result) {
+                if (mysqli_num_rows($result) == 0) {
+                    $error = "No orders found!";
+                } else {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>
+                    <td>" . $row["orderID"] . "</td>
+                    <td>" . $row["reservationFullName"] . "</td>
+                    <td>" . $row["orderList"] . "</td>
+                    </tr>";
+                    }
+                }
+            }
+            ?>
+        </table>
+    </div>
+    <p id="error">
+        <?php
+
+        echo isset($error) ? $error : "";
+
+        ?>
+    </p>
 </body>
 
 </html>

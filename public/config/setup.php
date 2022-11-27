@@ -61,7 +61,7 @@ if (mysqli_query($link, $sql)) {
 
 $sql = "CREATE TABLE IF NOT EXISTS orders(
     orderID INT AUTO_INCREMENT,
-    reservationID INT(10),
+    reservationFullName VARCHAR(255),
     orderList VARCHAR(255) NOT NULL,
     key(orderID)
 );";

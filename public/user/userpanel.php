@@ -8,6 +8,24 @@ if (!isset($_SESSION["loggedIn"])) {
 $success = "";
 $error = "";
 $email = $_SESSION["email"];
+$fullname = $_SESSION["fullName"];
+if ($_GET["ordered"] == "true") {
+    $success = "Successfully ordered!";
+}
+
+$userID = $_SESSION["userID"];
+$sql = "SELECT * FROM reservations WHERE userID = '$userID'";
+if ($result = mysqli_query($link, $sql)) {
+    if (mysqli_num_rows($result) == 0) {
+        $_SESSION["reserved"] = false;
+        consoleLog($_SESSION["reserved"]);
+    } else {
+        $_SESSION["reserved"] = true;
+        consoleLog($_SESSION["reserved"]);
+    }
+
+}
+
 
 if (isset($_POST["makeReservation"]) && $_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION["reserved"] == false) {
     $firstName = $_POST["firstname"];
@@ -22,7 +40,7 @@ if (isset($_POST["makeReservation"]) && $_SERVER["REQUEST_METHOD"] == "POST" && 
     $sql = "INSERT INTO reservations VALUES ('default', '$userID', '$firstName', '$lastName', '$telephone', '$email', '$date', '$time', '$people','$comments')";
     if (mysqli_query($link, $sql)) {
         $success = "Reservation made successfully.";
-        $_SESSION["lastInsert"] = mysqli_insert_id($link);
+        $_SESSION["reservationID"] = mysqli_insert_id($link);
         unset($_POST);
         $_SESSION["reserved"] = true;
     } else {
@@ -36,6 +54,10 @@ if (isset($_POST["cancelBtn"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     if (mysqli_query($link, $deleteSQL)) {
         $success = "Deleted successfully.";
         $_SESSION["reserved"] = false;
+        $deleteSQL = "DELETE FROM orders WHERE reservationFullName = '$fullname'";
+        if (mysqli_query($link, $deleteSQL)) {
+            $_SESSION["ordered"] = false;
+        }
     } else {
         $error = "Error occurred";
     }
@@ -167,6 +189,7 @@ if (isset($_POST["cancelBtn"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
             border-radius: 5px;
             border: none;
             color: red;
+            cursor: pointer;
         }
 
         .cancel {
@@ -206,8 +229,12 @@ if (isset($_POST["cancelBtn"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="top-left">
         <h2>Welcome back,<span class="inform">
                 <?php echo $_SESSION["fullName"] ?>
-                <p id="error"><?php echo isset($error) ? $error : "" ?></p>
-                <p><?php echo isset($success) ? $success : "" ?></p>
+                <p id="error">
+                    <?php echo isset($error) ? $error : "" ?>
+                </p>
+                <p>
+                    <?php echo isset($success) ? $success : "" ?>
+                </p>
             </span>
         </h2>
     </div>
@@ -217,16 +244,24 @@ if (isset($_POST["cancelBtn"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="form-container">
                 <button class="close" onclick="closeForm()">&times;</button>
                 <label for="firstname"><b>First name</b></label>
-                <input type="text" name="firstname" id="firstname" value="<?php echo isset($_SESSION["firstName"]) ? $_SESSION["firstName"] : '' ?>" placeholder="Enter your first name." required>
+                <input type="text" name="firstname" id="firstname"
+                    value="<?php echo isset($_SESSION["firstName"]) ? $_SESSION["firstName"] : '' ?>"
+                    placeholder="Enter your first name." required>
 
                 <label for="lastname"><b>Last name</b></label>
-                <input type="text" name="lastname" id="lastname" value="<?php echo isset($_SESSION["lastName"]) ? $_SESSION["lastName"] : '' ?>" placeholder=" Enter your last name." required>
+                <input type="text" name="lastname" id="lastname"
+                    value="<?php echo isset($_SESSION["lastName"]) ? $_SESSION["lastName"] : '' ?>"
+                    placeholder=" Enter your last name." required>
 
                 <label for="telephone"><b>Telephone</b></label>
-                <input type="tel" name="telephone" id="telephone" value="<?php echo isset($_SESSION["telephone"]) ? $_SESSION["telephone"] : '' ?>" placeholder="Enter your phone number." required>
+                <input type="tel" name="telephone" id="telephone"
+                    value="<?php echo isset($_SESSION["telephone"]) ? $_SESSION["telephone"] : '' ?>"
+                    placeholder="Enter your phone number." required>
 
                 <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="Enter your email." value="<?php echo isset($_SESSION["email"]) ? $_SESSION["email"] : '' ?>" name="email" id="email" required>
+                <input type="text" placeholder="Enter your email."
+                    value="<?php echo isset($_SESSION["email"]) ? $_SESSION["email"] : '' ?>" name="email" id="email"
+                    required>
                 <label for="people">Number of people</label>
                 <select name="people" id="people" required>
                     <option value="1">1</option>
