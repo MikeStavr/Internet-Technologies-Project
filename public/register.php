@@ -26,8 +26,6 @@ if (isset($_POST["register"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
             $error = "Error: Could process register.";
         }
     }
-
-
 }
 ?>
 <!DOCTYPE html>
@@ -114,17 +112,15 @@ if (isset($_POST["register"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" placeholder="Enter your email." name="email" id="email" required>
 
             <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter your password." name="password" id="password" minlength="8"
-                required>
+            <input type="password" placeholder="Enter your password." name="password" id="password" minlength="8" required>
 
             <label for="psw-repeat"><b>Repeat Password</b></label>
-            <input type="password" placeholder="Repeat your password." name="password-repeat" id="password-repeat"
-                minlength="8" required>
+            <input type="password" placeholder="Repeat your password." name="password-repeat" id="password-repeat" minlength="8" required>
             <hr>
             <input type="submit" name="register" class="registerbtn" value="Register">
             <p id="error">
                 <?php echo !empty($error) ? $error : ""
-                    ?>
+                ?>
             </p>
         </div>
     </form>

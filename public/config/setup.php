@@ -12,7 +12,6 @@ if (mysqli_query($link, $sql)) {
     consoleLog("Created database 'restaurant'.");
 } else {
     consoleLog("Error! Error occurred while attempting to use database restaurant! " . mysqli_error($link));
-
 }
 
 
@@ -50,6 +49,7 @@ $sql = "CREATE TABLE IF NOT EXISTS reservations(
     date VARCHAR(255) NOT NULL,
     time VARCHAR(255) NOT NULL,
     people INT,
+    comments VARCHAR(255),
     key(reservationID)
 );";
 
@@ -71,4 +71,3 @@ if (mysqli_query($link, $sql)) {
 } else {
     echo consoleLog("Error! Error occurred while creating users! " . mysqli_error($link));
 }
-?>

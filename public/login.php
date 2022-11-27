@@ -44,7 +44,6 @@ if (isset($_POST["login"]) && $_SERVER["REQUEST_METHOD"] === "POST") {
             } else {
                 $error = "Invalid username or password.";
             }
-
         } else {
             echo "Something went wrong. Contact an administrator.";
         }
@@ -131,8 +130,7 @@ if (isset($_POST["login"]) && $_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <button type="submit" name="login">Login</button>
                 <div class="container">
-                    <p>No account? <a href="./register.php" class="register"
-                            title="Click here to visit the register form.">Register</a> now!</p>
+                    <p>No account? <a href="./register.php" class="register" title="Click here to visit the register form.">Register</a> now!</p>
                 </div>
             </div>
         </form>
