@@ -45,8 +45,12 @@ $error = "";
     <link rel="stylesheet" href="../../assets/style.css">
     <style>
         body {
-            overflow: hidden;
+            overflow: auto;
             margin-top: 50px;
+        }
+
+        .topnav {
+            z-index: 9;
         }
 
         * {
@@ -62,6 +66,10 @@ $error = "";
             float: left;
             width: 50%;
             padding: 5px;
+        }
+
+        .half {
+            width: 25;
         }
 
         .row::after {
@@ -147,7 +155,7 @@ $error = "";
                 ?>
             </table>
         </div>
-        <div class="column">
+        <div class="column ">
             <h1>Dessert menu:</h1>
 
             <table>
@@ -186,6 +194,7 @@ $error = "";
     </div>
 
     <div class="full">
+        <h1>Reservations:</h1>
         <table>
             <tr>
                 <th>Reservation ID</th>
@@ -224,12 +233,10 @@ $error = "";
                 $error = "Error occurred!";
             }
             ?>
-
         </table>
     </div>
-    <br>
-    <br>
-    <div class=" full">
+    <div class="full last">
+        <h1>Orders:</h1>
         <table>
             <tr>
                 <th>Order ID</th>
@@ -262,6 +269,7 @@ $error = "";
 
         ?>
     </p>
+
 </body>
 
 </html>
