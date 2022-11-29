@@ -51,7 +51,7 @@ if (isset($_POST["cancelBtn"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     $lastID = $_POST['cancelBtn'];
     $deleteSQL = "DELETE FROM reservations WHERE reservationID = '$lastID'";
     if (mysqli_query($link, $deleteSQL)) {
-        $success = "Deleted successfully.";
+        $success = "Deleted reservation successfully.";
         $_SESSION["reserved"] = false;
         $deleteSQL = "DELETE FROM orders WHERE reservationFullName = '$fullname'";
         if (mysqli_query($link, $deleteSQL)) {
@@ -74,7 +74,8 @@ if (isset($_POST["cancelBtn"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../../assets/style.css">
     <style>
         .success {
-            color: green;
+            color: lime;
+            font-size: 20px;
         }
 
         * {
