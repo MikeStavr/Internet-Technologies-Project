@@ -3,7 +3,7 @@ session_start();
 
 require("./config/config.php");
 $error = "";
-$fullname = $_SESSION["fullName"];
+$fullname = isset($_SESSION["fullName"]) ? $_SESSION["fullName"] : "";
 $sql = "SELECT * FROM orders WHERE reservationFullName = '$fullname'";
 if ($result = mysqli_query($link, $sql)) {
     if (mysqli_num_rows($result) == 0) {
@@ -12,7 +12,6 @@ if ($result = mysqli_query($link, $sql)) {
         $_SESSION["ordered"] = true;
         $error = "You have already ordered!";
     }
-
 }
 
 if (isset($_POST["completeOrder"]) && $_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION["ordered"] == false) {
@@ -98,6 +97,7 @@ if (isset($_POST["cancelBtn"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
             cursor: pointer;
             margin-bottom: 10px;
             opacity: 0.8;
+            margin-top: 70px;
         }
 
         .cancel {
@@ -151,7 +151,6 @@ if (isset($_POST["cancelBtn"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                             <td>" . $check . "</td>                        
                             </tr>";
                             }
-
                         } else {
                             foreach ($xmlFile->dishes->dish as $child) {
 
@@ -191,7 +190,6 @@ if (isset($_POST["cancelBtn"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                             <td>" . $check . "</td>                        
                             </tr>";
                             }
-
                         } else {
                             foreach ($xmlFile->desserts->dessert as $child) {
 

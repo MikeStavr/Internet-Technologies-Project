@@ -45,8 +45,11 @@ $error = "";
     <link rel="stylesheet" href="../../assets/style.css">
     <style>
         body {
-            overflow: hidden;
             margin-top: 50px;
+        }
+
+        .topnav {
+            z-index: 9;
         }
 
         * {
@@ -99,11 +102,9 @@ $error = "";
     ?>
     <div class="top-left">
         <form action=" ./adminpanel.php" method="POST" enctype="multipart/form-data">
-            <p>Upload <a href="../../assets/templates/menu_main.xml" title="Click to download the template."
-                    download="menu_main.xml" style="color:black;">menu_main.xml</a> for the main
+            <p>Upload <a href="../../assets/templates/menu_main.xml" title="Click to download the template." download="menu_main.xml" style="color:black;">menu_main.xml</a> for the main
                 menu. <br>
-                Upload <a href="../../assets/templates/menu_dessert.xml" title="Click to download the template."
-                    download="menu_dessert.xml" style="color:black;">menu_dessert.xml</a>
+                Upload <a href="../../assets/templates/menu_dessert.xml" title="Click to download the template." download="menu_dessert.xml" style="color:black;">menu_dessert.xml</a>
                 for the desserts menu.</p>
             <input type="file" name="menuFile" id="menuFile">
             <br><br>
@@ -186,6 +187,7 @@ $error = "";
     </div>
 
     <div class="full">
+        <h1>Reservations:</h1>
         <table>
             <tr>
                 <th>Reservation ID</th>
@@ -229,7 +231,8 @@ $error = "";
     </div>
     <br>
     <br>
-    <div class=" full">
+    <div class="full">
+        <h1>Orders:</h1>
         <table>
             <tr>
                 <th>Order ID</th>
